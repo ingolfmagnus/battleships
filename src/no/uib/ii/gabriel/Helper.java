@@ -15,12 +15,4 @@ public class Helper {
             return "";
         }
     }
-
-    public static void main(String[] args) {
-        System.out.print("Enter text: ");
-        System.out.println("You entered " + readInputLine());
-    }
-
-    //
-
-}
+ }
