@@ -2,8 +2,8 @@ package no.uib.ii.gabriel;
 
 public abstract class Player {
 
-    protected Board myFleet;
-    protected Board myBombings;
+    protected Board myFleet = new Board();
+    protected Board myBombings = new Board();
 
     protected Ship[] ships = {
         new Ship("C", "Carrier", 5),
