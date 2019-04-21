@@ -13,6 +13,12 @@ public class GameController {
         playerOne.newGame();
         playerTwo.newGame();
 
-
+        MoveInfo moveInfo = new MoveInfo();
+        do {
+            playerOne.move(moveInfo);
+            playerTwo.move(moveInfo);
+        } while (playerOne.getFleetDurability()>0 && playerTwo.getFleetDurability() > 0);
+        Player victor = playerOne.getFleetDurability() == 0 ? playerTwo : playerOne;
+        System.out.println(victor.getName() + " wins!");
     }
 }

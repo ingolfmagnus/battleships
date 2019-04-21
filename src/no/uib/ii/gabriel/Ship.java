@@ -3,16 +3,16 @@ package no.uib.ii.gabriel;
 public class Ship extends BoardPiece {
 
     private final String name;
-    private int lives;
+    private int durability;
 
     public Ship(String aSymbol, String aName, int aSize) {
         super(aSymbol, aSize);
         name = aName;
-        lives = aSize;
+        durability = aSize;
     }
 
     public void hit() {
-        lives--;
+        durability--;
     }
 
     public String getName() {
@@ -20,11 +20,11 @@ public class Ship extends BoardPiece {
     }
 
     public int getDurability() {
-        return lives;
+        return durability;
     }
 
     public void resetDurability() {
-        lives = size;
+        durability = size;
     }
 
 }

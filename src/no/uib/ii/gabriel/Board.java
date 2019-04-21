@@ -2,14 +2,12 @@ package no.uib.ii.gabriel;
 
 public class Board {
 
-    public enum Orientation {HORIZONTAL, VERTICAL}
-
-
+    public enum Orientation {HORIZONTAL, VERTICAL;}
     private final BoardPiece [][] array = new BoardPiece[10][10];
+
     public BoardPiece[][] getArray() {
         return array;
     }
-
     boolean placePiece(BoardPiece piece, BoardLocation location, Orientation orientation) {
 
         int lastX = 0;
@@ -24,11 +22,11 @@ public class Board {
         }
 
         // Check if there is free cell(s) for piece
-        if (lastX <= 10 && lastY <= 10) {
+        if (lastX < 10 && lastY < 10) {
             for (int x = location.getX(); x <= lastX; x++) {
                 for (int y = location.getY(); y <= lastY; y++) {
                     // Fail if cell is not empty
-                    if (array[x-1][y-1] != null)
+                    if (array[x][y] != null)
                         return false;
                 }
             }
@@ -36,13 +34,21 @@ public class Board {
             for (int x = location.getX(); x <= lastX; x++) {
                 for (int y = location.getY(); y <= lastY; y++) {
                     // Make cell point to the piece
-                    array[x-1][y-1] = piece;
+                    array[x][y] = piece;
                 }
             }
             return true;
         }
         else  // Piece would go over edge, fail
              return false;
+    }
+
+    public BoardPiece getPiece(BoardLocation location) {
+        return array[location.getY()][location.getY()];
+    }
+
+    public void setPiece(BoardLocation location, BoardPiece piece) {
+        array[location.getY()][location.getY()] = piece;
     }
 
     public void clear() {

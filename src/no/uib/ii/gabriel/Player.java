@@ -2,9 +2,9 @@ package no.uib.ii.gabriel;
 
 public abstract class Player {
 
-    protected Board myFleet = new Board();
-    protected Board myBombings = new Board();
-
+    protected String name;
+    protected Board oceanMap = new Board();
+    protected Board targetMap = new Board();
     protected Ship[] ships = {
         new Ship("C", "Carrier", 5),
         new Ship("B", "Battleship", 4),
@@ -13,23 +13,35 @@ public abstract class Player {
         new Ship("P", "Patrol", 2)
     };
 
-    public int getFleetValue() {
+    public Player(String theName) {
+        name = theName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getFleetDurability() {
         int sum = 0;
         for (Ship ship : ships)
             sum += ship.getDurability();
         return sum;
     }
 
-    public boolean bomb(BoardLocation location) {
-        BoardPiece piece = myFleet.getArray()[location.getX()][location.getY()];
-        if (piece instanceof Ship) {
-            Ship ship = (Ship) piece;
-            ship.hit();
-            myFleet.getArray()[location.getX()][location.getY()] = null;
-            return true;
+    protected void checkForHit(MoveInfo move) {
+        // See if there is a move and if so, if we are hit
+        if (move.getLocation() != null) {
+            BoardPiece piece = oceanMap.getPiece(move.getLocation());
+            boolean isAHit = piece instanceof Ship;
+            if (isAHit) {
+                ((Ship) piece).hit();
+                oceanMap.setPiece(move.getLocation(), new BoardPiece(piece.getSymbol().toLowerCase(), 1));
+            }
+            move.setHitShip(piece);
+
         }
-        return false;
     }
 
     public abstract void newGame();
+    public abstract void move(MoveInfo move);
 }
