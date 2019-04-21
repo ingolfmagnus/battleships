@@ -19,11 +19,11 @@ public class Ship extends BoardPiece {
         return name;
     }
 
-    public int getLives() {
+    public int getDurability() {
         return lives;
     }
 
-    public void resetLives() {
+    public void resetDurability() {
         lives = size;
     }
 

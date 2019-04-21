@@ -13,10 +13,10 @@ public abstract class Player {
         new Ship("P", "Patrol", 2)
     };
 
-    public int getTotalLives() {
+    public int getFleetValue() {
         int sum = 0;
         for (Ship ship : ships)
-            sum += ship.getLives();
+            sum += ship.getDurability();
         return sum;
     }
 

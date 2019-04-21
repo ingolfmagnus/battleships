@@ -3,6 +3,7 @@ package no.uib.ii.gabriel;
 public class BoardLocation {
 
     private int x;
+
     private int y;
 
     public BoardLocation(int anX, int anY) throws IllegalArgumentException {
@@ -14,9 +15,9 @@ public class BoardLocation {
 
     public BoardLocation(String alphaNum) throws IllegalArgumentException {
         if (alphaNum.matches("[a-jA-J][0-9]+")) {
-            x = alphaNum.toUpperCase().charAt(0) - 'A' + 1;
+            y = alphaNum.toUpperCase().charAt(0) - 'A' + 1;
             try {
-                y = Integer.parseInt(alphaNum.substring(1));
+                x = Integer.parseInt(alphaNum.substring(1));
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Illegal number format");
             }
