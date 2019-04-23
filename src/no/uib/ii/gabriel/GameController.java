@@ -14,11 +14,17 @@ public class GameController {
         playerTwo.newGame();
 
         MoveInfo moveInfo = new MoveInfo();
+        int turns = 0;
         do {
             playerOne.move(moveInfo);
             playerTwo.move(moveInfo);
+
+            turns++;
+
+            Helper.printBoard(playerOne.oceanMap);
+            Helper.printBoard(playerTwo.oceanMap);
         } while (playerOne.getFleetDurability()>0 && playerTwo.getFleetDurability() > 0);
         Player victor = playerOne.getFleetDurability() == 0 ? playerTwo : playerOne;
-        System.out.println(victor.getName() + " wins!");
+        System.out.println(victor.getName() + " wins in " + turns + " turns!");
     }
 }

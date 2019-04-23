@@ -16,4 +16,11 @@ public class BoardPiece {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public String toString() {
+        return "BoardPiece{" +
+                "symbol='" + symbol + '\'' +
+                '}';
+    }
 }

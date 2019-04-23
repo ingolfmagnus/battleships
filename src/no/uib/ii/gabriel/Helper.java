@@ -19,4 +19,19 @@ public class Helper {
             return "";
         }
     }
+
+    public static void printBoard(Board theMap) {
+        BoardPiece[][] pieceArray = theMap.getArray();
+        System.out.println("   1 2 3 4 5 6 7 8 9 10");
+        for (int y = 0; y < 10; y++) {
+            System.out.print((char)('A'+y));System.out.print('|');
+            for (int x = 0; x < 10; x++) {
+                if (pieceArray[x][y] != null)
+                    System.out.print(" " + pieceArray[x][y].getSymbol());
+                else
+                    System.out.print("..");
+            }
+            System.out.println();
+        }
+    }
  }

@@ -3,16 +3,18 @@ package no.uib.ii.gabriel;
 public class HumanPlayer extends Player {
 
     private BoardLocation lastMoveLocation = null;
+
     public HumanPlayer(String aName) {
         super(aName);
     }
 
-
     @Override
     public void newGame() {
+        resetFleetAndBoards();
 
-        System.out.println("Placement of ships");
-        for (Ship ship : ships) {
+        System.out.println("Placement of fleet");
+        /*
+        for (Ship ship : fleet) {
             boolean inputOK = false;
             do {
                 String alphaNum = Helper.readInputLine("Where do you place the " + ship.getName() +
@@ -32,53 +34,59 @@ public class HumanPlayer extends Player {
             } while (! inputOK);
         }
 
+         */
+        oceanMap.placePiece(fleet[0], new BoardLocation(0, 0), Board.Orientation.HORIZONTAL);
+        oceanMap.placePiece(fleet[1], new BoardLocation(0, 1), Board.Orientation.HORIZONTAL);
+        oceanMap.placePiece(fleet[2], new BoardLocation(0, 2), Board.Orientation.HORIZONTAL);
+        oceanMap.placePiece(fleet[3], new BoardLocation(0, 3), Board.Orientation.HORIZONTAL);
+        oceanMap.placePiece(fleet[4], new BoardLocation(0, 4), Board.Orientation.HORIZONTAL);
+
     }
 
     @Override
     public void move(MoveInfo move) {
+        checkOpponentResponse(move);
+        checkOpponentMove(move);
+
         if (move.getHitShip() != null) {
-            System.out.println("HIT of ship " + move.getHitShip().getName());
+            System.out.println("Your ship " + move.getHitShip().getName() + " was hit.");
             if (move.getHitShip().getDurability() == 0)
                 System.out.println("SUNK!");
-            if (lastMoveLocation != null)
-                targetMap.setPiece(lastMoveLocation, new BoardPiece("*",1));
         }
-        else if (lastMoveLocation != null)
-            targetMap.setPiece(lastMoveLocation, new BoardPiece("O",1));
 
+        Helper.printBoard(targetMap);
+        Helper.printBoard(oceanMap);
 
-        checkForHit(move);
+        makeNewMove(move);
+    }
 
-        printBoard(targetMap);
-        printBoard(oceanMap);
-
+    private void makeNewMove(MoveInfo move) {
         BoardLocation loc = null;
-        boolean inputOK = true;
+        boolean inputOK;
         do {
+            inputOK = true;
             try {
                 loc = new BoardLocation(Helper.readInputLine("Bomb target [A1-J10]: "));
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 inputOK = false;
             }
-        } while (! inputOK);
+        } while (!inputOK);
         move.setLocation(loc);
         lastMoveLocation = loc;
-        return;
     }
 
-    private void printBoard(Board theMap) {
-        BoardPiece[][] pieceArray = theMap.getArray();
-        System.out.println("   1 2 3 4 5 6 7 8 9 10");
-        for (int y = 0; y < 10; y++) {
-            System.out.print((char)('A'+y));System.out.print('|');
-            for (int x = 0; x < 10; x++) {
-                if (pieceArray[x][y] != null)
-                    System.out.print(" " + pieceArray[x][y].getSymbol());
-                else
-                    System.out.print("..");
+    private void checkOpponentResponse(MoveInfo move) {
+        if (lastMoveLocation != null) {
+            if (move.getHitShip() != null) {
+                System.out.println("You HIT a " + move.getHitShip().getName());
+                if (move.getHitShip().getDurability() == 0)
+                    System.out.println("SUNK!");
+                targetMap.setPiece(lastMoveLocation, new BoardPiece("*", 1));
+            } else if (targetMap.getPiece(lastMoveLocation) == null) {
+                targetMap.setPiece(lastMoveLocation, new BoardPiece("O", 1));
             }
-            System.out.println();
         }
     }
+
+
 }

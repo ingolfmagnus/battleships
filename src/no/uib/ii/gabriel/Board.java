@@ -44,11 +44,11 @@ public class Board {
     }
 
     public BoardPiece getPiece(BoardLocation location) {
-        return array[location.getY()][location.getY()];
+        return array[location.getX()][location.getY()];
     }
 
     public void setPiece(BoardLocation location, BoardPiece piece) {
-        array[location.getY()][location.getY()] = piece;
+        array[location.getX()][location.getY()] = piece;
     }
 
     public void clear() {
