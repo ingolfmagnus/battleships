@@ -51,6 +51,7 @@ public class HumanPlayer extends Player {
         checkOpponentResponse(move);
         checkOpponentMove(move);
 
+        System.out.println("=========== " + getName() + "'s turn =========== ");
         if (move.getHitShip() != null) {
             System.out.println("Your ship " + move.getHitShip().getName() + " was hit.");
             if (move.getHitShip().getDurability() == 0)
