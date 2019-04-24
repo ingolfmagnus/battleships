@@ -1,4 +1,4 @@
-package no.uib.ii.gabriel;
+package inf101.v19.sem2;
 
 import java.io.BufferedReader;
 import java.io.IOException;

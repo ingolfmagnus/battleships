@@ -1,9 +1,7 @@
-package no.uib.ii.gabriel;
+package inf101.v19.sem2;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
 
