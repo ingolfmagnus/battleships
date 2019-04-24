@@ -16,6 +16,8 @@ public abstract class Player {
             new Ship("P", "Patrol", 2)
     };
 
+    protected BoardLocation lastMoveLocation = null;
+
     /**
      *
      * @param theName The player's displayed name
@@ -49,12 +51,34 @@ public abstract class Player {
         }
     }
 
+    protected void checkOpponentResponse(MoveInfo move) {
+        if (lastMoveLocation != null) {
+            if (move.getHitShip() != null) {
+                if (this instanceof HumanPlayer) {
+                    System.out.println(getName() + " HIT a " + move.getHitShip().getName() + "!");
+                    if (move.getHitShip().getDurability() == 0)
+                        System.out.println("It was SUNK!");
+                }
+                targetMap.setPiece(lastMoveLocation, new BoardPiece("*", 1));
+            } else {
+                if (this instanceof HumanPlayer) {
+                    System.out.println(getName() + " MISSED at location: " + lastMoveLocation.getAlphaNum() + "!");
+                }
+                targetMap.setPiece(lastMoveLocation, new BoardPiece("O", 1));
+            }
+        }
+    }
+
     protected void resetFleetAndBoards() {
         for (Ship ship : fleet) {
             ship.resetDurability();
         }
         oceanMap.clear();
         targetMap.clear();
+    }
+
+    protected boolean validMove(BoardLocation loc) {
+        return (loc != null) && (targetMap.getPiece(loc) == null);
     }
 
     public abstract void newGame();

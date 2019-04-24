@@ -2,8 +2,6 @@ package inf101.v19.sem2;
 
 public class HumanPlayer extends Player {
 
-    private BoardLocation lastMoveLocation = null;
-
     public HumanPlayer(String aName) {
         super(aName);
     }
@@ -13,7 +11,7 @@ public class HumanPlayer extends Player {
         resetFleetAndBoards();
 
         System.out.println("Placement of fleet");
-
+        /*
         for (Ship ship : fleet) {
             boolean inputOK = false;
             do {
@@ -35,14 +33,15 @@ public class HumanPlayer extends Player {
             } while (!inputOK);
         }
 
-        /*
+         */
+
         oceanMap.placePiece(fleet[0], new BoardLocation(0, 0), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[1], new BoardLocation(0, 1), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[2], new BoardLocation(0, 2), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[3], new BoardLocation(0, 3), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[4], new BoardLocation(0, 4), Board.Orientation.HORIZONTAL);
 
-         */
+
 
     }
 
@@ -51,17 +50,21 @@ public class HumanPlayer extends Player {
         checkOpponentResponse(move);
         checkOpponentMove(move);
 
-        System.out.println("=========== " + getName() + "'s turn =========== ");
+        System.out.println("\n=========== " + getName() + "'s turn =========== ");
+
         if (move.getHitShip() != null) {
-            System.out.println("Your ship " + move.getHitShip().getName() + " was hit.");
+            System.out.println(move.getPlayerName() + " HIT your ship " + move.getHitShip().getName());
             if (move.getHitShip().getDurability() == 0)
                 System.out.println("SUNK!");
+        } else if (move.getLocation() != null) { // Null if first move in gameg
+            System.out.println(move.getPlayerName() + " MISSED at location: " + move.getLocation().getAlphaNum() + "!");
         }
 
         Helper.printBoard(targetMap);
         Helper.printBoard(oceanMap);
 
         makeNewMove(move);
+        move.setPlayerName(getName());
     }
 
     private void makeNewMove(MoveInfo move) {
@@ -75,23 +78,13 @@ public class HumanPlayer extends Player {
                 inputOK = false;
                 System.out.println("Invalid input. Type a letter A-J followed by a number 1-10, e.g. B5.");
             }
+            if (!validMove(loc)){
+                inputOK = false;
+                System.out.println("Target already bombed, bomb a new target!");
+            }
         } while (!inputOK);
         move.setLocation(loc);
         lastMoveLocation = loc;
-    }
-
-    private void checkOpponentResponse(MoveInfo move) {
-        //TODO: Check for duplicate moves when doing move
-        if (lastMoveLocation != null) {
-            if (move.getHitShip() != null) {
-                System.out.println("You HIT a " + move.getHitShip().getName());
-                if (move.getHitShip().getDurability() == 0)
-                    System.out.println("SUNK!");
-                targetMap.setPiece(lastMoveLocation, new BoardPiece("*", 1));
-            } else if (targetMap.getPiece(lastMoveLocation) == null) {
-                targetMap.setPiece(lastMoveLocation, new BoardPiece("O", 1));
-            }
-        }
     }
 
 

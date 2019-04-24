@@ -3,6 +3,15 @@ package inf101.v19.sem2;
 public class MoveInfo {
     private BoardLocation location;
     private Ship hitShip;
+    private String playerName;
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     public Ship getHitShip() {
         return hitShip;

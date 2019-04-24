@@ -5,8 +5,9 @@ import java.util.Random;
 public class BattleShips {
     public static void main(String[] args) {
         HumanPlayer human = new HumanPlayer(Helper.readInputLine("Enter your name: "));
+        // HumanPlayer human2 = new HumanPlayer(Helper.readInputLine("Enter your name: "));
         AIPlayer ai = new AIPlayer("AI");
-        //AIPlayer ai2 = new AIPlayer("Mac");
+        // AIPlayer ai2 = new AIPlayer("Mac");
 
         GameController controller;
         if (new Random().nextBoolean()) { // Decide randomly who goes first

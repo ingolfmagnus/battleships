@@ -43,9 +43,15 @@ public class AIPlayer extends Player {
 
     @Override
     public void move(MoveInfo move) {
-        //TODO: Use target map, avoid duplicate moves
+        checkOpponentResponse(move);
         checkOpponentMove(move);
         Random r = new Random();
-        move.setLocation(new BoardLocation(r.nextInt(10), r.nextInt(10)));
+        BoardLocation location = null;
+        do {
+            location = new BoardLocation(r.nextInt(10), r.nextInt(10));
+        } while (!validMove(location));
+        move.setLocation(location);
+        lastMoveLocation = location;
+        move.setPlayerName(getName());
     }
 }
