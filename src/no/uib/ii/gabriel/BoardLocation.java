@@ -11,7 +11,7 @@ public class BoardLocation {
             throw new IllegalArgumentException();
         x = anX;
         y = anY;
-        alphaNum = "" + "ABCDEFGHIJ".charAt(y) + x;
+        alphaNum = "" + "ABCDEFGHIJ".charAt(y) + (x+1);
     }
 
     @Override

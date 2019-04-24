@@ -13,33 +13,36 @@ public class HumanPlayer extends Player {
         resetFleetAndBoards();
 
         System.out.println("Placement of fleet");
-        /*
+
         for (Ship ship : fleet) {
             boolean inputOK = false;
             do {
+                //TODO: Stricter input checking
                 String alphaNum = Helper.readInputLine("Where do you place the " + ship.getName() +
-                        " of size " + ship.getSize() + " [A-J1-10] ? ");
-                String oText = Helper.readInputLine("[A]cross or [D]own?");
+                        " of size " + ship.getSize() + " [A1-J10] ? ");
+                String oText = Helper.readInputLine("To the [R]ight or [D]own?");
                 Board.Orientation orientation =
-                        oText.equalsIgnoreCase("A") ? Board.Orientation.HORIZONTAL : Board.Orientation.VERTICAL;
+                        oText.equalsIgnoreCase("R") ? Board.Orientation.HORIZONTAL : Board.Orientation.VERTICAL;
                 try{
                     inputOK = oceanMap.placePiece(ship, new BoardLocation(alphaNum), orientation);
-                    if (inputOK) printBoard(oceanMap);
+                    if (inputOK) Helper.printBoard(oceanMap);
                 }
-                catch (Exception e) {
+                catch (Exception E) {
                     inputOK = false;
                 }
                 if (!inputOK)
                     System.out.println("Error or overlap. Please try again:");
-            } while (! inputOK);
+            } while (!inputOK);
         }
 
-         */
+        /*
         oceanMap.placePiece(fleet[0], new BoardLocation(0, 0), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[1], new BoardLocation(0, 1), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[2], new BoardLocation(0, 2), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[3], new BoardLocation(0, 3), Board.Orientation.HORIZONTAL);
         oceanMap.placePiece(fleet[4], new BoardLocation(0, 4), Board.Orientation.HORIZONTAL);
+
+         */
 
     }
 
@@ -69,6 +72,7 @@ public class HumanPlayer extends Player {
                 loc = new BoardLocation(Helper.readInputLine("Bomb target [A1-J10]: "));
             } catch (IllegalArgumentException e) {
                 inputOK = false;
+                System.out.println("Invalid input. Type a letter A-J followed by a number 1-10, e.g. B5.");
             }
         } while (!inputOK);
         move.setLocation(loc);
@@ -76,6 +80,7 @@ public class HumanPlayer extends Player {
     }
 
     private void checkOpponentResponse(MoveInfo move) {
+        //TODO: Check for duplicate moves when doing move
         if (lastMoveLocation != null) {
             if (move.getHitShip() != null) {
                 System.out.println("You HIT a " + move.getHitShip().getName());

@@ -1,18 +1,25 @@
 package no.uib.ii.gabriel;
 
+/**
+ *
+ */
 public abstract class Player {
 
     protected String name;
     protected Board oceanMap = new Board();
     protected Board targetMap = new Board();
     protected Ship[] fleet = {
-        new Ship("C", "Carrier", 5),
-        new Ship("B", "Battleship", 4),
-        new Ship("D", "Destroyer", 3),
-        new Ship("S", "Submarine", 3),
-        new Ship("P", "Patrol", 2)
+            new Ship("C", "Carrier", 5),
+            new Ship("B", "Battleship", 4),
+            new Ship("D", "Destroyer", 3),
+            new Ship("S", "Submarine", 3),
+            new Ship("P", "Patrol", 2)
     };
 
+    /**
+     *
+     * @param theName The player's displayed name
+     */
     public Player(String theName) {
         name = theName;
     }
@@ -51,5 +58,6 @@ public abstract class Player {
     }
 
     public abstract void newGame();
+
     public abstract void move(MoveInfo move);
 }

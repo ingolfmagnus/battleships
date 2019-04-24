@@ -29,7 +29,7 @@ public class Helper {
                 if (pieceArray[x][y] != null)
                     System.out.print(" " + pieceArray[x][y].getSymbol());
                 else
-                    System.out.print("..");
+                    System.out.print(" .");
             }
             System.out.println();
         }

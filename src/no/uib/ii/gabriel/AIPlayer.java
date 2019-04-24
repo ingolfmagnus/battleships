@@ -26,7 +26,7 @@ public class AIPlayer extends Player {
                     int y = random.nextInt(10 - ship.getSize()+1);
                     int x = random.nextInt(10);
                     placed = oceanMap.placePiece(ship, new BoardLocation(x, y), Board.Orientation.VERTICAL);
-                } while (! placed);
+                } while (!placed);
             }
         }
 
@@ -43,6 +43,7 @@ public class AIPlayer extends Player {
 
     @Override
     public void move(MoveInfo move) {
+        //TODO: Use target map, avoid duplicate moves
         checkOpponentMove(move);
         Random r = new Random();
         move.setLocation(new BoardLocation(r.nextInt(10), r.nextInt(10)));
