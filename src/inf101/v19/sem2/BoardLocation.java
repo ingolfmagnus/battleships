@@ -37,6 +37,18 @@ public class BoardLocation {
             throw new IllegalArgumentException();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BoardLocation that = (BoardLocation) o;
+
+        if (x != that.x) return false;
+        return y == that.y;
+
+    }
+
     public int getY() {
         return y;
     }
